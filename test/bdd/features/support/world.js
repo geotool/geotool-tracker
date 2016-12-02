@@ -23,7 +23,7 @@ var World = function World(callback) {
       try {
         return {
           id: object.id,
-          geofence: JSON.parse(object.geofence)
+          geofences: JSON.parse(object.geofences)
         }
       } catch(exception) {
         return {}
