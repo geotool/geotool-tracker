@@ -22,21 +22,24 @@ module.exports = function(opts) {
   }
 
   var Clazz = function Clazz(params) {
-    debuglog.isEnabled && debuglog(' + constructor begin ...');
-
     EventEmitter.call(this);
     params = params || {};
     debuglog = params.debuglog || debuglog;
 
+    debuglog.isEnabled && debuglog(' + constructor begin ...');
+
     var self = this;
-    self.__data = lodash.defaults({}, lodash.pick(params, ['geofences']), { trackers: {} });
+    self.__data = {
+      geofences: params.geofences || [],
+      trackers: {}
+    }
 
     debuglog.isEnabled && debuglog(' - constructor end!');
   };
 
   util.inherits(Clazz, EventEmitter);
 
-  Clazz.prototype.trace = function(trackingpoint) {
+  Clazz.prototype.check = function(trackingpoint) {
     var self = this;
 
     if (!self.__data.trackers[trackingpoint.actorId]) {
@@ -54,7 +57,7 @@ module.exports = function(opts) {
       events: []
     };
 
-    lodash.forEach(self.__data.geofences, function(geofence) {
+    self.__data.geofences.forEach(function(geofence) {
       if (turf.inside(trackingpoint.geopoint, geofence.polygons)) {
         trackingResult.inside.push(geofence.id);
       }

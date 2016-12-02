@@ -43,7 +43,7 @@ module.exports = function() {
     var self = this;
     var routes = self.parseTrackingpoints(table.hashes());
     return Promise.mapSeries(routes, function(route) {
-      return self.geotoolInstance.trace(route);
+      return self.geotoolInstance.check(route);
     }).then(function(result) {
       self.trackingResult = result;
       return true;
