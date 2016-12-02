@@ -1,0 +1,21 @@
+{
+  "name": "geotool",
+  "version": "0.1.0",
+  "description": "Nodejs Geometry Toolkit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "acegik",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "cucumber": "^2.0.0-rc.1",
+    "debug": "^2.3.3"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "lodash": "^4.17.2",
+    "turf": "^3.0.14"
+  }
+}
