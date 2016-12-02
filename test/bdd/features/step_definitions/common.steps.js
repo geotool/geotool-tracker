@@ -19,6 +19,9 @@ module.exports = function() {
       self.geotoolInstance = new Geotool({
         geofences: self.parseGeofences(table.hashes())
       });
+      self.geotoolInstance.on('change', function(data) {
+        debuglog.isEnabled && debuglog(' - state change: %s', JSON.stringify(data));
+      });
       resolve();
     });
   });
@@ -49,7 +52,6 @@ module.exports = function() {
 
   this.Then('the state of tracking points should be', function (table) {
     var self = this;
-    console.log(JSON.stringify(self.trackingResult, null, 2));
     return Promise.resolve('pending');
   });
 

@@ -3,7 +3,7 @@
 module.exports = function(opts) {
   opts = opts || {};
 
-  var events = require('events');
+  var EventEmitter = require('events');
   var util = require('util');
   var turf = require('turf');
   var Promise = opts.bluebird || require('bluebird');
@@ -24,16 +24,17 @@ module.exports = function(opts) {
   var Clazz = function Clazz(params) {
     debuglog.isEnabled && debuglog(' + constructor begin ...');
 
+    EventEmitter.call(this);
     params = params || {};
     debuglog = params.debuglog || debuglog;
 
     var self = this;
     self.__data = lodash.defaults({}, lodash.pick(params, ['geofences']), { trackers: {} });
 
-    console.log(JSON.stringify(self.__data.geofences, null, 2));
-
     debuglog.isEnabled && debuglog(' - constructor end!');
   };
+
+  util.inherits(Clazz, EventEmitter);
 
   Clazz.prototype.trace = function(trackingpoint) {
     var self = this;
@@ -41,6 +42,9 @@ module.exports = function(opts) {
     if (!self.__data.trackers[trackingpoint.actorId]) {
       self.__data.trackers[trackingpoint.actorId] = new ActorTracker({
         actorId: trackingpoint.actorId
+      });
+      self.__data.trackers[trackingpoint.actorId].on('change', function(data) {
+        self.emit('change', data);
       });
     }
 
