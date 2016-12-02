@@ -15,7 +15,8 @@ module.exports = function() {
   this.Given(/^a list of geofences that each contains a list of geometry polygon$/, function (table) {
     var self = this;
     return new Promise(function(resolve, reject) {
-      self.geotoolInstance = new self.Geotool({
+      var Geotool = self.Geotool;
+      self.geotoolInstance = new Geotool({
         geofences: self.parseGeofences(table.hashes())
       });
       resolve();
@@ -48,7 +49,7 @@ module.exports = function() {
 
   this.Then('the state of tracking points should be', function (table) {
     var self = this;
-    console.log(JSON.stringify(self.trackingResult));
+    console.log(JSON.stringify(self.trackingResult, null, 2));
     return Promise.resolve('pending');
   });
 
