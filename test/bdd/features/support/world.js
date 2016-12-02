@@ -44,6 +44,21 @@ var World = function World(callback) {
       }
     });
   };
+
+  this.parseTrackingResult = function (objectArray) {
+    objectArray = objectArray || [];
+    return lodash.map(objectArray, function(object) {
+      try {
+        return {
+          actorId: object.actorId,
+          inside: JSON.parse(object.inside),
+          events: JSON.parse(object.events)
+        }
+      } catch(exception) {
+        return {}
+      }
+    });
+  };
 };
 
 module.exports.World = World;

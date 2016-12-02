@@ -9,7 +9,7 @@ module.exports = function(opts) {
   var Promise = opts.bluebird || require('bluebird');
   var lodash = opts.lodash || require('lodash');
 
-  var ActorTracker = require('./lib/actor-tracker.js');
+  var TrackingTrigger = require('./lib/tracking-trigger.js');
 
   var debuglog = function() {};
   debuglog.isEnabled = true;
@@ -40,7 +40,7 @@ module.exports = function(opts) {
     var self = this;
 
     if (!self.__data.trackers[trackingpoint.actorId]) {
-      self.__data.trackers[trackingpoint.actorId] = new ActorTracker({
+      self.__data.trackers[trackingpoint.actorId] = new TrackingTrigger({
         actorId: trackingpoint.actorId
       });
       self.__data.trackers[trackingpoint.actorId].on('change', function(data) {

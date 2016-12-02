@@ -35,24 +35,24 @@ Scenario: Tracing the enter & leave geometry polygon
     | actor_2 | {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[105.94047546386717,21.106861969033197]}} |
     | actor_2 | {"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[105.94146251678465,21.107702726254338]}} |
   Then the state of tracking points should be
-    | actorId | event | geofenceId     |
-    | actor_1 |       |                |
-    | actor_1 |       |                |
-    | actor_1 |       |                |
-    | actor_1 |       |                |
-    | actor_1 | ENTER | ["geofence2"]  |
-    | actor_1 |       | ["geofence2"]  |
-    | actor_1 |       | ["geofence2"]  |
-    | actor_1 |       | ["geofence2"]  |
-    | actor_2 |       |                |
-    | actor_2 |       |                |
-    | actor_2 | ENTER | ["geofence2"]  |
-    | actor_2 |       | ["geofence2"]  |
-    | actor_2 |       | ["geofence2"]  |
-    | actor_2 |       | ["geofence2"]  |
-    | actor_2 |       | ["geofence2"]  |
-    | actor_2 |       | ["geofence2"]  |
-    | actor_2 |       | ["geofence2"]  |
-    | actor_2 |       | ["geofence2"]  |
-    | actor_2 | LEAVE |                |
-    | actor_2 |       |                |
+    | actorId | events                                         | inside        |
+    | actor_1 | []                                             | []            |
+    | actor_1 | []                                             | []            |
+    | actor_1 | []                                             | []            |
+    | actor_1 | []                                             | []            |
+    | actor_1 | [{"type": "ENTER", "geofenceId": "geofence2"}] | ["geofence2"] |
+    | actor_1 | []                                             | ["geofence2"] |
+    | actor_1 | []                                             | ["geofence2"] |
+    | actor_1 | []                                             | ["geofence2"] |
+    | actor_2 | []                                             | []            |
+    | actor_2 | []                                             | []            |
+    | actor_2 | [{"type": "ENTER", "geofenceId": "geofence2"}] | ["geofence2"] |
+    | actor_2 | []                                             | ["geofence2"] |
+    | actor_2 | []                                             | ["geofence2"] |
+    | actor_2 | []                                             | ["geofence2"] |
+    | actor_2 | []                                             | ["geofence2"] |
+    | actor_2 | []                                             | ["geofence2"] |
+    | actor_2 | []                                             | ["geofence2"] |
+    | actor_2 | []                                             | ["geofence2"] |
+    | actor_2 | [{"type": "LEAVE", "geofenceId": "geofence2"}] | []            |
+    | actor_2 | []                                             | []            |

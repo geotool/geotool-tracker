@@ -52,7 +52,12 @@ module.exports = function() {
 
   this.Then('the state of tracking points should be', function (table) {
     var self = this;
-    return Promise.resolve('pending');
+    return new Promise(function(resolve, reject) {
+      var trackingResult = self.parseTrackingResult(table.hashes());
+      assert.equal(trackingResult.length, self.trackingResult.length);
+      assert.sameDeepMembers(trackingResult, self.trackingResult);
+      resolve();
+    });
   });
 
 
