@@ -5,7 +5,7 @@ module.exports = function(opts) {
 
   var events = require('events');
   var util = require('util');
-
+  var turf = require('turf');
   var Promise = opts.bluebird || require('bluebird');
   var lodash = opts.lodash || require('lodash');
 
@@ -26,10 +26,14 @@ module.exports = function(opts) {
     debuglog = params.debuglog || debuglog;
 
     var self = this;
-    self.__data = lodash.defaults({}, lodash.pick(params, ['geofences']));
+    self.__data = lodash.defaults({}, lodash.pick(params, ['geofences']), { trails: {} });
 
     debuglog.isEnabled && debuglog(' - constructor end!');
   };
+
+  Clazz.prototype.trace = function(trackingpoint) {
+    return lodash.assign(trackingpoint, {event: 'NO'});
+  }
 
   Clazz.prototype.stats = function() {
     var self = this;

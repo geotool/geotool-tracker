@@ -15,15 +15,29 @@ var Geotool = require('../../../../index.js')();
 var World = function World(callback) {
 
   this.Geotool = Geotool;
-  this.geotoolInstance = {};
+  this.geotoolInstance = null;
 
-  this.parseRegistration = function (objectArray) {
+  this.parseGeofences = function (objectArray) {
     objectArray = objectArray || [];
     return lodash.map(objectArray, function(object) {
       try {
         return {
           id: object.id,
-          geofences: JSON.parse(object.geofences)
+          polygons: JSON.parse(object.polygons)
+        }
+      } catch(exception) {
+        return {}
+      }
+    });
+  };
+
+  this.parseTrackingpoints = function (objectArray) {
+    objectArray = objectArray || [];
+    return lodash.map(objectArray, function(object) {
+      try {
+        return {
+          actorId: object.actorId,
+          geopoint: JSON.parse(object.geopoint)
         }
       } catch(exception) {
         return {}

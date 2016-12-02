@@ -15,29 +15,43 @@ module.exports = function() {
   this.Given(/^a list of geofences that each contains a list of geometry polygon$/, function (table) {
     var self = this;
     return new Promise(function(resolve, reject) {
-      var rds = self.parseRegistration(table.hashes());
-      lodash.forEach(rds, function(rd) {
-        var GeotoolClazz = self.Geotool;
-        self.geotoolInstance[rd.id] = new GeotoolClazz({
-          geofences: rd.geofences
-        });
+      self.geotoolInstance = new self.Geotool({
+        geofences: self.parseGeofences(table.hashes())
       });
       resolve();
     });
   });
 
-  this.When(/^I request the method '([^']*)' of instance '([^']*)' with parameter: '([^']*)'$/, function (methodName, geotoolName, parameters) {
+  this.When(/^I request the method '([^']*)' of geotool instance with parameter: '([^']*)'$/, function (methodName, parameters) {
     var self = this;
     parameters = JSON.parse(parameters);
     return Promise.resolve().then(function() {
-      if (!lodash.isObject(self.geotoolInstance[geotoolName]) || !lodash.isFunction(self.geotoolInstance[geotoolName][methodName])) {
+      if (!lodash.isObject(self.geotoolInstance) || !lodash.isFunction(self.geotoolInstance[methodName])) {
         return Promise.reject({ message: 'Invalid parameters'});
       }
-      return self.geotoolInstance[geotoolName][methodName].apply(self.geotoolInstance[geotoolName], parameters);
+      return self.geotoolInstance[methodName].apply(self.geotoolInstance, parameters);
     }).then(function(result) {
       self.functionResult = result;
     });
   });
+
+  this.When('the actors go along the routes', function (table) {
+    var self = this;
+    var routes = self.parseTrackingpoints(table.hashes());
+    return Promise.mapSeries(routes, function(route) {
+      return self.geotoolInstance.trace(route);
+    }).then(function(result) {
+      self.trackingResult = result;
+      return true;
+    });
+  });
+
+  this.Then('the state of tracking points should be', function (table) {
+    var self = this;
+    console.log(JSON.stringify(self.trackingResult));
+    return Promise.resolve('pending');
+  });
+
 
   this.Then(/^the result should contain the object '([^']*)'$/, function (expectedResult) {
     var self = this;
