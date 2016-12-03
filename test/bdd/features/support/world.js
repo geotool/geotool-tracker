@@ -16,6 +16,8 @@ var World = function World(callback) {
 
   this.Geotool = Geotool;
   this.geotoolInstance = null;
+  this.trackingResult = [];
+  this.changeEventResult = [];
 
   this.parseGeofences = function (objectArray) {
     objectArray = objectArray || [];

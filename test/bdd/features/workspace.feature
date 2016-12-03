@@ -56,3 +56,8 @@ Scenario: Tracing the enter & leave geometry polygon
     | actor_2 | []                                             | ["geofence2"] |
     | actor_2 | [{"type": "LEAVE", "geofenceId": "geofence2"}] | []            |
     | actor_2 | []                                             | []            |
+  And the change event has been triggered '3' times
+    | actorId | events                                         | inside        |
+    | actor_1 | [{"type": "ENTER", "geofenceId": "geofence2"}] | ["geofence2"] |
+    | actor_2 | [{"type": "ENTER", "geofenceId": "geofence2"}] | ["geofence2"] |
+    | actor_2 | [{"type": "LEAVE", "geofenceId": "geofence2"}] | []            |
