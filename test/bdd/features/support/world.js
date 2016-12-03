@@ -10,7 +10,7 @@ var lodash = require('lodash');
 var debug = require('debug');
 var debuglog = debug('geotool:test:bdd:world');
 
-var Geotool = require('../../../../index.js')();
+var Geotool = require('../../../../index.js').Tracker;
 
 var World = function World(callback) {
 
