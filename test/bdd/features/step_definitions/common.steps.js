@@ -1,12 +1,11 @@
 'use strict';
 
 var util = require('util');
-var Devebot = require('devebot');
-var Promise = Devebot.require('bluebird');
-var lodash = Devebot.require('lodash');
+var Promise = require('bluebird');
+var lodash = require('lodash');
 var assert = require('chai').assert;
 
-var debug = Devebot.require('debug');
+var debug = require('../../../../lib/utils/debug');
 var debuglog = debug('geotool:test:bdd:steps:common');
 
 module.exports = function() {
