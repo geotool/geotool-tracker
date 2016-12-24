@@ -19,48 +19,43 @@ var World = function World(callback) {
   this.trackingResult = [];
   this.changeEventResult = [];
 
-  this.parseGeofences = function (objectArray) {
+  var parseTableObjects = function(rules, objectArray) {
+    rules = rules || {};
+    rules.stringFields = rules.stringFields || ['id', 'actorId'];
+    rules.objectFields = rules.objectFields || ['polygons', 'geopoint', 'extraInfo'];
     objectArray = objectArray || [];
     return lodash.map(objectArray, function(object) {
       try {
-        return {
-          id: object.id,
-          polygons: JSON.parse(object.polygons)
-        }
+        var parsedObject = {};
+        rules.stringFields.forEach(function(fieldName) {
+          parsedObject[fieldName] = object[fieldName];
+        });
+        rules.objectFields.forEach(function(fieldName) {
+          if (typeof(object[fieldName]) == 'string' && object[fieldName].length > 0) {
+            parsedObject[fieldName] = JSON.parse(object[fieldName]);
+          }
+        });
+        return parsedObject;
       } catch(exception) {
         return {}
       }
     });
-  };
+  }
 
-  this.parseTrackingpoints = function (objectArray) {
-    objectArray = objectArray || [];
-    return lodash.map(objectArray, function(object) {
-      try {
-        return {
-          actorId: object.actorId,
-          geopoint: JSON.parse(object.geopoint)
-        }
-      } catch(exception) {
-        return {}
-      }
-    });
-  };
+  this.parseGeofences = parseTableObjects.bind(this, {
+    stringFields: ['id'],
+    objectFields: ['polygons']
+  });
 
-  this.parseTrackingResult = function (objectArray) {
-    objectArray = objectArray || [];
-    return lodash.map(objectArray, function(object) {
-      try {
-        return {
-          actorId: object.actorId,
-          inside: JSON.parse(object.inside),
-          events: JSON.parse(object.events)
-        }
-      } catch(exception) {
-        return {}
-      }
-    });
-  };
+  this.parseTrackingpoints = parseTableObjects.bind(this, {
+    stringFields: ['actorId'],
+    objectFields: ['geopoint', 'extraInfo']
+  });
+
+  this.parseTrackingResult = parseTableObjects.bind(this, {
+    stringFields: ['actorId'],
+    objectFields: ['events', 'inside', 'extraInfo']
+  });
 };
 
 module.exports.World = World;
