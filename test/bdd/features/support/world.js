@@ -49,7 +49,7 @@ var World = function World(callback) {
 
   this.parseTrackingpoints = parseTableObjects.bind(this, {
     stringFields: ['actorId'],
-    objectFields: ['geopoint', 'extraInfo']
+    objectFields: ['geopoint', 'extraInfo', 'tempInfo']
   });
 
   this.parseTrackingResult = parseTableObjects.bind(this, {

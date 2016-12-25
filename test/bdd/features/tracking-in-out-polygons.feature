@@ -1,14 +1,14 @@
-Feature: Temporary workspace
+Feature: Tracking in/out geometry polygon events
 
 Scenario: Check whether a geopoint belongs or not to a geofence
-  Given a list of geofences that each contains a list of geometry polygon
+  Given a geotool instance with setting '{}' and a list of geofences that each contains a list of geometry polygon
     | id        | polygons |
     | geofence1 | {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[-112.074279,40.52215],[-112.074279,40.853293],[-111.610107,40.853293],[-111.610107,40.52215],[-112.074279,40.52215]]]}} |
   When I request the method 'stats' of geotool instance with parameter: '[]'
   Then the result should contain the object '{ "total": 1 }'
 
 Scenario: Tracing the enter & leave geometry polygon
-  Given a list of geofences that each contains a list of geometry polygon
+  Given a geotool instance with setting '{}' and a list of geofences that each contains a list of geometry polygon
     | id        | polygons |
     | geofence1 | {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[-112.074279,40.52215],[-112.074279,40.853293],[-111.610107,40.853293],[-111.610107,40.52215],[-112.074279,40.52215]]]}} |
     | geofence2 | {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[105.6500244140625,21.017854937856118],[105.80108642578125,21.12293562133021],[106.06201171875,21.09218798704055],[106.14166259765625,20.917831371761558],[106.05377197265625,20.666195922002352],[105.6939697265625,20.58136735381001],[105.49346923828125,20.715015145512098],[105.6500244140625,21.017854937856118]],[[106.18011474609375,21.386589909132898],[106.41632080078124,21.40449100321618],[106.435546875,21.08706276222476],[106.04278564453125,21.248422235627014],[106.18011474609375,21.386589909132898]]]}} |
@@ -63,7 +63,7 @@ Scenario: Tracing the enter & leave geometry polygon
     | actor_2 | [{"type": "LEAVE", "geofenceId": "geofence2"}] | []            |
 
 Scenario: Tracing the enter & leave geometry polygon with simple geopoint format
-  Given a list of geofences that each contains a list of geometry polygon
+  Given a geotool instance with setting '{}' and a list of geofences that each contains a list of geometry polygon
     | id        | polygons |
     | geofence2 | [[[105.6500244140625,21.017854937856118],[105.80108642578125,21.12293562133021],[106.06201171875,21.09218798704055],[106.14166259765625,20.917831371761558],[106.05377197265625,20.666195922002352],[105.6939697265625,20.58136735381001],[105.49346923828125,20.715015145512098],[105.6500244140625,21.017854937856118]],[[106.18011474609375,21.386589909132898],[106.41632080078124,21.40449100321618],[106.435546875,21.08706276222476],[106.04278564453125,21.248422235627014],[106.18011474609375,21.386589909132898]]] |
   When the actors go along the routes

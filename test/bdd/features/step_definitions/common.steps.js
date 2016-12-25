@@ -11,12 +11,14 @@ var debuglog = debug('geotool:test:bdd:steps:common');
 module.exports = function() {
   this.World = require('../support/world.js').World;
 
-  this.Given(/^a list of geofences that each contains a list of geometry polygon$/, function (table) {
+  this.Given(/^a geotool instance with setting '([^']*)' and a list of geofences that each contains a list of geometry polygon$/, function (setting, table) {
     var self = this;
+    var setting = JSON.parse(setting);
     return new Promise(function(resolve, reject) {
       var Geotool = self.Geotool;
       self.geotoolInstance = new Geotool({
-        geofences: self.parseGeofences(table.hashes())
+        geofences: self.parseGeofences(table.hashes()),
+        setting: setting
       });
       self.geotoolInstance.on('change', function(data) {
         debuglog.isEnabled && debuglog(' - state change: %s', JSON.stringify(data));
