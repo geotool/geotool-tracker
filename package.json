@@ -30,6 +30,6 @@
     "ajv": "^4.9.1",
     "geotool-commons": "^0.1.4",
     "jsonschema": "^1.1.0",
-    "turf": "^3.0.14"
+    "turf-inside": "^3.0.12"
   }
 }
