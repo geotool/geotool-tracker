@@ -13,10 +13,22 @@
     "chai": "^3.5.0",
     "cucumber": "^2.0.0-rc.1",
     "debug": "^2.3.3",
+    "browserify": "^13.3.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-browserify": "^0.5.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-webserver": "^0.9.1",
+    "run-sequence": "^1.2.2",
     "lodash": "^4.17.2"
   },
   "dependencies": {
     "ajv": "^4.9.1",
+    "geotool-commons": "^0.1.4",
     "jsonschema": "^1.1.0",
     "turf": "^3.0.14"
   }
