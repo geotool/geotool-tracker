@@ -1,5 +1,5 @@
 {
-  "name": "geotool",
+  "name": "geotool-tracker",
   "version": "0.1.4",
   "description": "Nodejs Geometry Toolkit",
   "main": "index.js",
@@ -9,15 +9,15 @@
   "author": "acegik",
   "license": "ISC",
   "devDependencies": {
+    "bluebird": "^3.4.6",
     "chai": "^3.5.0",
     "cucumber": "^2.0.0-rc.1",
-    "debug": "^2.3.3"
+    "debug": "^2.3.3",
+    "lodash": "^4.17.2"
   },
   "dependencies": {
     "ajv": "^4.9.1",
-    "bluebird": "^3.4.6",
     "jsonschema": "^1.1.0",
-    "lodash": "^4.17.2",
     "turf": "^3.0.14"
   }
 }
