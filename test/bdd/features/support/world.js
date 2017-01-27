@@ -7,8 +7,8 @@ events.EventEmitter.defaultMaxListeners = 100;
 
 var Promise = require('bluebird');
 var lodash = require('lodash');
-var debug = require('debug');
-var debuglog = debug('geotool:test:bdd:world');
+var commons = require('geotool-commons');
+var debuglog = commons.getDebugger('geotool:test:bdd:world');
 
 var Geotool = require('../../../../index.js').Tracker;
 

@@ -5,8 +5,8 @@ var Promise = require('bluebird');
 var lodash = require('lodash');
 var assert = require('chai').assert;
 
-var debug = require('../../../../lib/utils/debug');
-var debuglog = debug('geotool:test:bdd:steps:common');
+var commons = require('geotool-commons');
+var debuglog = commons.getDebugger('geotool:test:bdd:steps:common');
 
 module.exports = function() {
   this.World = require('../support/world.js').World;
@@ -21,7 +21,7 @@ module.exports = function() {
         setting: setting
       });
       self.geotoolInstance.on('change', function(data) {
-        debuglog.isEnabled && debuglog(' - state change: %s', JSON.stringify(data));
+        debuglog && debuglog(' - state change: %s', JSON.stringify(data));
         self.changeEventResult.push(data);
       });
       resolve();
@@ -66,8 +66,8 @@ module.exports = function() {
     var self = this;
     return new Promise(function(resolve, reject) {
       var changeEventResult = self.parseTrackingResult(table.hashes());
-      debuglog.isEnabled && debuglog(' - self.changeEventResult: %s', JSON.stringify(self.changeEventResult));
-      debuglog.isEnabled && debuglog(' - changeEventResult: %s', JSON.stringify(changeEventResult));
+      debuglog && debuglog(' - self.changeEventResult: %s', JSON.stringify(self.changeEventResult));
+      debuglog && debuglog(' - changeEventResult: %s', JSON.stringify(changeEventResult));
       assert.equal(changeEventResult.length, self.changeEventResult.length);
       assert.sameDeepMembers(changeEventResult, self.changeEventResult);
       resolve();
@@ -78,8 +78,8 @@ module.exports = function() {
     var self = this;
     expectedResult = JSON.parse(expectedResult);
     return Promise.resolve().then(function() {
-      debuglog.isEnabled && debuglog(' - self.functionResult: %s', JSON.stringify(self.functionResult));
-      debuglog.isEnabled && debuglog(' - expectedResult: %s', JSON.stringify(expectedResult));
+      debuglog && debuglog(' - self.functionResult: %s', JSON.stringify(self.functionResult));
+      debuglog && debuglog(' - expectedResult: %s', JSON.stringify(expectedResult));
       assert.isTrue(lodash.isMatch(self.functionResult, expectedResult));
       return true;
     });
