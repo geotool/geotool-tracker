@@ -1,19 +1,22 @@
 # geotool
 
-> Node.js Geometry Toolkit
+> Geotool tracker module
 
 ## Install
 
 ```shell
-npm install --save geotool
+npm install --save geotool-tracker
 ```
 
 ## Usage
 
+### Nodejs or Browserify
+
 Open the terminal in which the `PROJECT_DIR` is the current working directory. Run `node`, copy & paste the below code stuff into the prompt to execute:
 
 ```javascript
-var Tracker = require('geotool').Tracker;
+var geotool = require('geotool-tracker');
+var Tracker = geotool.Tracker;
 
 var tracker = new Tracker({
   geofences: [{
